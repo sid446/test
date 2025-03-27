@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import axios from 'axios';
 import { ChevronUp, ChevronDown, Search, List, Grid, ArrowUpDown } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 const DetailPage = () => {
-  
+  const { isAuth ,logout} = useContext(AuthContext);
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -15,7 +19,23 @@ const DetailPage = () => {
   const [viewMode, setViewMode] = useState('grid'); 
   const itemsPerPage = 10;
 
+   useEffect(() => {
+          const checkAuth = () => {
+              if (!sessionStorage.getItem("isAuth")) {
+                  logout();
+                  navigate("/login");
+              }
+          };
   
+          checkAuth();
+  
+          window.addEventListener("storage", checkAuth);
+  
+          return () => {
+              window.removeEventListener("storage", checkAuth);
+          };
+      }, [isAuth, navigate, logout]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
