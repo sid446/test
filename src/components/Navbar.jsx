@@ -4,17 +4,21 @@ import { Codesandbox } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function Navbar() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const {user ,logout,deleteAccount}=useContext(AuthContext)    
+    const {user ,logout,deleteAccount}=useContext(AuthContext)  
+    const navigate=useNavigate()  
     const handleLogout=()=>{
         logout()
     }
     const handleDeleteAccount=()=>{
         deleteAccount()
+        navigate('/login')
+        
     }
   return (
     <div className='w-full h-full flex justify-between items-center p-8   bg-zinc-600 overflow-hidden'>

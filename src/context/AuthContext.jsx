@@ -30,6 +30,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuth(false);
         sessionStorage.removeItem("user");
         sessionStorage.removeItem("isAuth");
+        
     }
 
     return (
