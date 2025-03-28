@@ -4,6 +4,7 @@ import { ChevronUp, ChevronDown, Search, List, Grid, ArrowUpDown } from 'lucide-
 import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import LoadingScreen from './LoadingScreen';
 
 const DetailPage = () => {
   const { isAuth ,logout} = useContext(AuthContext);
@@ -95,9 +96,7 @@ const DetailPage = () => {
 
   if (loading) {
     return (
-      <div className="h-full flex justify-center items-center text-white">
-        Loading...
-      </div>
+      <LoadingScreen   />
     );
   }
 
